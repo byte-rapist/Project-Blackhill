@@ -1,5 +1,5 @@
 # BLACKHILL live ISO package list (x86_64)
-# Base + networking + desktop + security essentials
+# Base + networking + desktop + security + media
 
 alsa-utils
 amd-ucode
@@ -9,13 +9,11 @@ base
 btrfs-progs
 bind
 bridge-utils
-btrfs-progs
 busybox
 clonezilla
 cloud-init
 cryptsetup
 darkhttpd
-ddhclient
 dhcpcd
 diffutils
 dmidecode
@@ -102,7 +100,6 @@ systemd-resolvconf
 tcpdump
 terminus-font
 testdisk
-tmpreaper
 tmux
 tpm2-tss
 udftools
@@ -141,3 +138,18 @@ bubblewrap
 lynis
 wireguard-tools
 usbguard
+
+# Video / media playback
+mpv
+ffmpeg
+yt-dlp
+libva
+libva-utils
+gst-libav
+gst-plugins-base
+gst-plugins-good
+gst-plugins-bad
+gst-plugins-ugly
+pipewire
+pipewire-pulse
+wireplumber
