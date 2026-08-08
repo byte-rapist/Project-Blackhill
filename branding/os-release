@@ -1,0 +1,12 @@
+NAME="BLACKHILL"
+PRETTY_NAME="BLACKHILL OS"
+ID=blackhill
+ID_LIKE=arch
+BUILD_ID=rolling
+ANSI_COLOR="0;31"
+HOME_URL="https://github.com/byte-rapist/Project-Blackhill"
+DOCUMENTATION_URL="https://github.com/byte-rapist/Project-Blackhill"
+SUPPORT_URL="https://github.com/byte-rapist/Project-Blackhill/issues"
+BUG_REPORT_URL="https://github.com/byte-rapist/Project-Blackhill/issues"
+PRIVACY_POLICY_URL=""
+LOGO=blackhill
