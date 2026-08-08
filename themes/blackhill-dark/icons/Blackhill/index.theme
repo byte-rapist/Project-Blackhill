@@ -1,0 +1,35 @@
+[Icon Theme]
+Name=Blackhill
+Comment=Premium dark icon theme for BLACKHILL OS – clean, recognizable, Windows-inspired metaphors in matte black + deep crimson
+Inherits=Adwaita,hicolor
+Example=folder
+
+Directories=scalable/places,scalable/apps,scalable/actions,scalable/status,scalable/devices,scalable/mimetypes
+
+[scalable/places]
+Size=128
+Context=Places
+Type=Scalable
+MinSize=8
+MaxSize=512
+
+[scalable/apps]
+Size=128
+Context=Applications
+Type=Scalable
+MinSize=8
+MaxSize=512
+
+[scalable/actions]
+Size=128
+Context=Actions
+Type=Scalable
+MinSize=8
+MaxSize=512
+
+[scalable/status]
+Size=128
+Context=Status
+Type=Scalable
+MinSize=8
+MaxSize=512
