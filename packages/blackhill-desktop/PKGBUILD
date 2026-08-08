@@ -1,0 +1,38 @@
+# Maintainer: BLACKHILL Project
+pkgname=blackhill-desktop
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="BLACKHILL desktop meta-package — Hyprland and premium UI stack"
+arch=('any')
+url="https://github.com/byte-rapist/Project-Blackhill"
+license=('MIT')
+depends=(
+  'blackhill-base'
+  'hyprland'
+  'waybar'
+  'kitty'
+  'rofi'
+  'thunar'
+  'xdg-desktop-portal-hyprland'
+  'polkit-gnome'
+  'grim'
+  'slurp'
+  'wl-clipboard'
+  'brightnessctl'
+  'hyprlock'
+  'hypridle'
+  'hyprpaper'
+  'ttf-jetbrains-mono-nerd'
+  'otf-font-awesome'
+)
+optdepends=(
+  'nwg-look: GTK theme switcher'
+  'firefox: recommended browser'
+  'pavucontrol: audio control'
+  'nm-connection-editor: network GUI'
+)
+provides=('blackhill-desktop')
+
+package() {
+  true
+}

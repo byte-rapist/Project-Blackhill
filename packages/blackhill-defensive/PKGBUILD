@@ -1,0 +1,37 @@
+# Maintainer: BLACKHILL Project
+pkgname=blackhill-defensive
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="BLACKHILL defensive meta-package — blue-team, audit, and monitoring tools"
+arch=('any')
+url="https://github.com/byte-rapist/Project-Blackhill"
+license=('MIT')
+depends=(
+  'blackhill-base'
+  'lynis'
+  'aide'
+  'rkhunter'
+  'clamav'
+  'fail2ban'
+  'audit'
+  'tcpdump'
+  'wireshark-qt'
+  'nftables'
+  'usbguard'
+  'yara'
+  'strace'
+  'lsof'
+  'htop'
+  'iotop'
+  'nethogs'
+)
+optdepends=(
+  'osquery: endpoint visibility (AUR)'
+  'wazuh-agent: SIEM agent (if packaged)'
+  'chkrootkit: additional rootkit checks'
+)
+provides=('blackhill-defensive')
+
+package() {
+  true
+}

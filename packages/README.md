@@ -1,21 +1,35 @@
-# BLACKHILL Packages
+# BLACKHILL Packages — Phase 3
 
-## Current state
+## Meta-packages
 
-This directory currently contains curated tool lists rather than actual PKGBUILDs.
+| Package | Purpose |
+|---------|--------|
+| `blackhill-base` | Core hardening dependencies + branding helpers |
+| `blackhill-desktop` | Hyprland + theme stack + UI components |
+| `blackhill-offensive` | Curated offensive / red-team oriented tools |
+| `blackhill-defensive` | Blue-team / defensive / audit tools |
+| `blackhill-full` | Everything above |
 
-## Planned meta-packages
+These are **meta-packages** (they pull in dependencies). They are intended to be built with `makepkg` on an Arch system and installed locally, or later published to a custom repository.
 
-- `blackhill-base` — core hardening dependencies and branding
-- `blackhill-desktop` — Hyprland + theme + essential UI components
-- `blackhill-offensive` — curated offensive tooling set
-- `blackhill-defensive` — blue-team / defensive tooling
-- `blackhill-re` — reverse engineering focused set
+## Build & install (local)
 
-## Recommendation for users today
+```bash
+cd packages/blackhill-base
+makepkg -si
 
-1. Apply the BLACKHILL hardening and theme from this repository.
-2. Optionally enable the BlackArch repository for the largest selection of security tools.
-3. Install tools selectively from `blackhill-tools.txt` or BlackArch categories according to need.
+cd ../blackhill-desktop
+makepkg -si
 
-This keeps the base system clean while giving full access to high-capability tooling.
+# Optional:
+cd ../blackhill-offensive && makepkg -si
+cd ../blackhill-defensive && makepkg -si
+# or
+cd ../blackhill-full && makepkg -si
+```
+
+## Notes
+
+- Some tools live in the AUR or BlackArch. The PKGBUILDs prefer official repos where possible and document optional extras.
+- After installing `blackhill-base` / `blackhill-desktop`, still run the hardening and theme scripts from this repository for full effect.
+- For the largest tool collection, enable BlackArch (see `docs/BLACKARCH.md`) and then layer BLACKHILL hardening + desktop on top.

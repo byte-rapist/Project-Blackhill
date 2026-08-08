@@ -1,0 +1,36 @@
+# Maintainer: BLACKHILL Project
+pkgname=blackhill-base
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="BLACKHILL core meta-package — hardening dependencies and base tools"
+arch=('any')
+url="https://github.com/byte-rapist/Project-Blackhill"
+license=('MIT')
+depends=(
+  'linux-hardened'
+  'linux-hardened-headers'
+  'apparmor'
+  'nftables'
+  'firejail'
+  'bubblewrap'
+  'lynis'
+  'aide'
+  'fail2ban'
+  'wireguard-tools'
+  'usbguard'
+  'polkit'
+)
+optdepends=(
+  'snapper: Btrfs snapshot management'
+  'grub-btrfs: bootable Btrfs snapshots'
+  'rkhunter: rootkit checks'
+  'clamav: antivirus engine'
+)
+provides=('blackhill-base')
+conflicts=()
+replaces=()
+
+package() {
+  # Meta-package only — no files. Configs come from the Project-Blackhill repo.
+  true
+}

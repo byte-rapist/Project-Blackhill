@@ -2,18 +2,13 @@
 
 ## Phase 0 — Foundation ✅ COMPLETE
 ## Phase 1 — Hardened Base ✅ SUBSTANTIALLY COMPLETE
-
 ## Phase 2 — Premium UI Polish ✅ COMPLETE
 
-- [x] Expanded icon set (additional status, actions, devices, mimetypes)
-- [x] Cursor theme guidance + structure
-- [x] Waybar security status modules
-- [x] Lightweight Control Center (TUI)
+## Phase 3 — Packaging ✅ COMPLETE
 
-## Phase 3 — Packaging
-
-- [ ] Meta-package PKGBUILDs
-- [ ] BlackArch integration documentation
+- [x] Meta-package PKGBUILDs (`blackhill-base`, `blackhill-desktop`, `blackhill-offensive`, `blackhill-defensive`, `blackhill-full`)
+- [x] BlackArch integration documentation
+- [x] Packaging README and usage guide
 
 ## Phase 4 — Distribution
 

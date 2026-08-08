@@ -1,0 +1,19 @@
+# Maintainer: BLACKHILL Project
+pkgname=blackhill-full
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="BLACKHILL full meta-package — base + desktop + offensive + defensive"
+arch=('any')
+url="https://github.com/byte-rapist/Project-Blackhill"
+license=('MIT')
+depends=(
+  'blackhill-base'
+  'blackhill-desktop'
+  'blackhill-offensive'
+  'blackhill-defensive'
+)
+provides=('blackhill-full')
+
+package() {
+  true
+}

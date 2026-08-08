@@ -1,0 +1,43 @@
+# Maintainer: BLACKHILL Project
+pkgname=blackhill-offensive
+pkgver=0.3.0
+pkgrel=1
+pkgdesc="BLACKHILL offensive meta-package — curated red-team / pentest tools (official repos)"
+arch=('any')
+url="https://github.com/byte-rapist/Project-Blackhill"
+license=('MIT')
+depends=(
+  'blackhill-base'
+  'nmap'
+  'masscan'
+  'wireshark-qt'
+  'tcpdump'
+  'john'
+  'hashcat'
+  'hydra'
+  'sqlmap'
+  'nikto'
+  'gobuster'
+  'ffuf'
+  'aircrack-ng'
+  'reaver'
+  'gdb'
+  'radare2'
+  'binwalk'
+  'socat'
+  'netcat'
+  'whois'
+  'traceroute'
+  'gnu-netcat'
+)
+optdepends=(
+  'metasploit: exploitation framework (large)'
+  'burpsuite: web testing (AUR / manual)'
+  'ghidra: reverse engineering'
+  'impacket: network protocols (AUR/BlackArch)'
+)
+provides=('blackhill-offensive')
+
+package() {
+  true
+}
