@@ -2,7 +2,7 @@
 
 Turn a clean Arch Linux system into BLACKHILL.
 
-> **Status**: Foundation + Phases 1–4 available. Video playback included in the desktop stack.
+> Video playback and performance-oriented desktop defaults are included.
 
 ## Prerequisites
 
@@ -26,59 +26,51 @@ sudo ./scripts/apply-hardening.sh
 ## 3. Kernel
 
 ```bash
+# Security-focused:
 sudo pacman -S linux-hardened linux-hardened-headers
+
+# Or speed-focused (still use BLACKHILL sysctl hardening):
+# sudo pacman -S linux-zen linux-zen-headers
 ```
 
-Apply recommended parameters from `configs/kernel/cmdline-recommended.txt`.
+Apply parameters from `configs/kernel/cmdline-recommended.txt` as needed.
 
-## 4. Desktop + video stack
-
-### Option A — Meta-packages (recommended)
+## 4. Desktop + video
 
 ```bash
 cd packages/blackhill-base && makepkg -si
 cd ../blackhill-desktop && makepkg -si
 ```
 
-This pulls Hyprland, the UI stack, **mpv, ffmpeg, codecs**, and related tools.
+Or install packages manually (see packages/README.md and docs/MEDIA.md).
 
-### Option B — Manual
-
-```bash
-sudo pacman -S hyprland waybar kitty rofi thunar \
-  xdg-desktop-portal-hyprland polkit-gnome \
-  grim slurp wl-clipboard brightnessctl \
-  hyprlock hypridle hyprpaper \
-  mpv ffmpeg yt-dlp libva libva-utils \
-  gst-libav gst-plugins-base gst-plugins-good \
-  gst-plugins-bad gst-plugins-ugly
-```
-
-Add your GPU VA-API driver (see [MEDIA.md](MEDIA.md)).
-
-## 5. First-boot (theme + configs)
+## 5. First-boot
 
 ```bash
 chmod +x scripts/first-boot.sh themes/blackhill-dark/install-theme.sh
 ./scripts/first-boot.sh
 ```
 
-## 6. Branding (as root)
+## 6. Performance (recommended on every machine)
+
+```bash
+chmod +x scripts/enable-performance-mode.sh
+./scripts/enable-performance-mode.sh   # optional max-speed profile
+```
+
+Read **[docs/PERFORMANCE.md](PERFORMANCE.md)** for GPU drivers, sysctl, and lag fixes.
+
+## 7. Branding
 
 ```bash
 sudo cp branding/os-release /etc/os-release
 sudo cp branding/motd /etc/motd
 ```
 
-## 7. Reboot and verify
+## 8. Reboot
 
 ```bash
 reboot
-# Log into Hyprland
-mpv --version
-lynis audit system
 ```
 
-## Post-install
-
-See [POST-INSTALL.md](POST-INSTALL.md) and [MEDIA.md](MEDIA.md).
+Then verify: Hyprland feels snappy, `mpv` plays video, `lynis audit system` runs cleanly enough for your threat model.
