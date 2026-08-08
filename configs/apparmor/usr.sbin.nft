@@ -1,0 +1,24 @@
+# BLACKHILL AppArmor skeleton for nft (nftables)
+# Restrict who can alter firewall rules
+#include <tunables/global>
+
+/usr/bin/nft {
+  #include <abstractions/base>
+
+  /usr/bin/nft rix,
+  /usr/sbin/nft rix,
+
+  /etc/nftables.conf r,
+  /etc/nftables/** r,
+  /run/** rw,
+  /proc/sys/net/** r,
+
+  network netlink raw,
+  capability net_admin,
+  capability net_raw,
+
+  deny capability sys_admin,
+  deny capability sys_module,
+  deny /boot/** w,
+  deny /usr/** w,
+}

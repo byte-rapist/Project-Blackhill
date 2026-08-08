@@ -1,0 +1,26 @@
+# BLACKHILL AppArmor skeleton for git
+#include <tunables/global>
+
+/usr/bin/git {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  /usr/bin/git rix,
+  /usr/lib/git-core/** rix,
+
+  owner @{HOME}/** rwk,
+  /tmp/** rw,
+
+  /etc/gitconfig r,
+  /etc/hosts r,
+  /etc/resolv.conf r,
+
+  network inet stream,
+  network inet6 stream,
+
+  deny capability sys_admin,
+  deny capability sys_module,
+  deny /etc/** w,
+  deny /usr/** w,
+  deny /boot/** w,
+}

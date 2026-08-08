@@ -1,45 +1,43 @@
 # AppArmor Profiles — BLACKHILL Phase 1
 
-## Goal
+## Profiles included
 
-Provide practical, enforce-mode-ready profiles for high-value targets while remaining usable on a root-capable operator system.
+| Profile | Target | Notes |
+|---------|--------|-------|
+| `usr.bin.firefox` | Firefox | Browser skeleton |
+| `usr.bin.chromium` | Chromium | Browser skeleton |
+| `usr.sbin.sshd` | OpenSSH server | Network-facing |
+| `usr.bin.curl` | curl | Common network tool |
+| `usr.bin.git` | git | Development tool |
+| `usr.sbin.nft` | nftables | Firewall control |
+| `usr.bin.pacman` | pacman | Package manager (use carefully) |
 
-## Current profiles (skeletons)
+## Recommended workflow
 
-| Profile | Target | Status |
-|---------|--------|--------|
-| `usr.bin.firefox` | Firefox | Skeleton — tighten with aa-logprof |
-| `usr.sbin.sshd` | OpenSSH server | Skeleton |
-| `usr.bin.pacman` | pacman | Skeleton (careful — package managers are complex) |
-| `usr.bin.pass` | pass / password-store | Basic |
+```bash
+sudo pacman -S apparmor apparmor-utils
+sudo systemctl enable --now apparmor
 
-## How to use
+# Ensure kernel cmdline has:
+# apparmor=1 lsm=landlock,lockdown,yama,apparmor
 
-1. Install AppArmor:
-   ```bash
-   sudo pacman -S apparmor apparmor-utils
-   sudo systemctl enable --now apparmor
-   ```
+# Install a profile
+sudo cp configs/apparmor/usr.bin.firefox /etc/apparmor.d/
+sudo apparmor_parser -r /etc/apparmor.d/usr.bin.firefox
 
-2. Ensure kernel cmdline contains:
-   ```
-   apparmor=1 lsm=landlock,lockdown,yama,apparmor
-   ```
+# Start in complain mode
+sudo aa-complain /etc/apparmor.d/usr.bin.firefox
 
-3. Copy desired profiles to `/etc/apparmor.d/` and load:
-   ```bash
-   sudo cp configs/apparmor/usr.bin.firefox /etc/apparmor.d/
-   sudo apparmor_parser -r /etc/apparmor.d/usr.bin.firefox
-   ```
+# Use the application normally, then:
+sudo aa-logprof
+sudo aa-enforce /etc/apparmor.d/usr.bin.firefox
 
-4. Start in complain mode first, then enforce after tuning:
-   ```bash
-   sudo aa-complain /etc/apparmor.d/usr.bin.firefox
-   # use the application, then:
-   sudo aa-logprof
-   sudo aa-enforce /etc/apparmor.d/usr.bin.firefox
-   ```
+# Check status
+sudo aa-status
+```
 
 ## Philosophy
 
-Profiles should reduce the blast radius of compromised applications without making the system painful for a skilled owner who needs root and low-level access. Prefer enforce mode for network-facing and browser processes; keep the rest practical.
+- Browsers and network-facing services are priority enforce targets.
+- Package managers and low-level tools need careful tuning; start in complain mode.
+- The owner retains full root; these profiles reduce blast radius of compromised processes.

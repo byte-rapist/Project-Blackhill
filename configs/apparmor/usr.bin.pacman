@@ -1,0 +1,38 @@
+# BLACKHILL AppArmor skeleton for pacman
+# WARNING: Package managers need broad access. Use complain mode first.
+#include <tunables/global>
+
+/usr/bin/pacman {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+
+  /usr/bin/pacman rix,
+  /usr/bin/pacman-* rix,
+  /usr/lib/pacman/** rix,
+
+  /etc/pacman.conf r,
+  /etc/pacman.d/** r,
+  /var/lib/pacman/** rwk,
+  /var/cache/pacman/** rwk,
+  /var/log/pacman.log rwk,
+
+  /usr/** rwk,          # needed for package install
+  /boot/** rwk,         # kernel packages
+  /etc/** rwk,
+  /opt/** rwk,
+  /srv/** rwk,
+
+  network inet stream,
+  network inet6 stream,
+
+  capability sys_admin,
+  capability chown,
+  capability fowner,
+  capability fsetid,
+  capability setuid,
+  capability setgid,
+
+  # Still deny the most dangerous raw access unless proven necessary
+  deny capability sys_module,
+  deny capability sys_rawio,
+}

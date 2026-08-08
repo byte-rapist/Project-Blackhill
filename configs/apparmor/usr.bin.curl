@@ -1,0 +1,31 @@
+# BLACKHILL AppArmor skeleton for curl
+#include <tunables/global>
+
+/usr/bin/curl {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+
+  /usr/bin/curl rix,
+
+  # Allow reading user files for uploads and writing downloads
+  owner @{HOME}/** r,
+  owner @{HOME}/Downloads/ rw,
+  owner @{HOME}/Downloads/** rw,
+  /tmp/** rw,
+
+  /etc/hosts r,
+  /etc/resolv.conf r,
+  /etc/ssl/** r,
+  /etc/ca-certificates/** r,
+
+  network inet stream,
+  network inet6 stream,
+  network inet dgram,
+  network inet6 dgram,
+
+  deny capability sys_admin,
+  deny capability sys_module,
+  deny /etc/** w,
+  deny /usr/** w,
+}

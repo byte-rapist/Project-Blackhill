@@ -1,0 +1,41 @@
+# BLACKHILL AppArmor skeleton for Chromium
+# /etc/apparmor.d/usr.bin.chromium
+# Start in complain mode, refine with aa-logprof
+
+#include <tunables/global>
+
+/usr/bin/chromium {
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+  #include <abstractions/nameservice>
+  #include <abstractions/user-tmp>
+  #include <abstractions/audio>
+  #include <abstractions/dbus-session>
+
+  /usr/bin/chromium rix,
+  /usr/lib/chromium/** rix,
+
+  owner @{HOME}/.config/chromium/** rwk,
+  owner @{HOME}/.cache/chromium/** rwk,
+  owner @{HOME}/Downloads/ rw,
+  owner @{HOME}/Downloads/** rw,
+
+  /dev/dri/** rw,
+  /sys/devices/** r,
+  /proc/*/maps r,
+  /proc/*/stat r,
+  /etc/hosts r,
+  /etc/resolv.conf r,
+
+  network inet stream,
+  network inet6 stream,
+  network inet dgram,
+  network inet6 dgram,
+
+  deny capability sys_admin,
+  deny capability sys_module,
+  deny capability sys_rawio,
+  deny /etc/** w,
+  deny /usr/** w,
+  deny /boot/** w,
+}

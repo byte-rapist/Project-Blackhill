@@ -1,39 +1,45 @@
-# Phase 1 — Hardened Base (Initiated)
+# Phase 1 — Hardened Base
 
-Phase 1 focuses on deepening the security baseline beyond the foundation configs.
+**Status: Substantially complete (pending real-world testing)**
 
-## Delivered in this phase initiation
+## Delivered
 
-| Item | Location | Notes |
-|------|----------|-------|
-| AppArmor profile skeletons | `configs/apparmor/` | Firefox, sshd skeletons + README workflow |
-| USBGuard baseline | `configs/usbguard/` | Already present; use with `usbguard generate-policy` for real hardware |
-| Btrfs + Snapper helper | `scripts/setup-btrfs-snapper.sh` | Creates root config and enables timers |
-| Lynis baseline helper | `scripts/lynis-baseline.sh` | Runs audit and stores reports under `/var/log/blackhill/` |
-| Secure Boot guidance | `docs/SECURE-BOOT.md` | Owner-controlled key enrollment path |
+| Component | Location | Description |
+|-----------|----------|-------------|
+| AppArmor profiles | `configs/apparmor/` | Firefox, Chromium, sshd, curl, git, nft, pacman skeletons + full workflow |
+| USBGuard | `configs/usbguard/` | Improved baseline + generation guidance |
+| Btrfs + Snapper | `scripts/setup-btrfs-snapper.sh` | Timeline, cleanup, initial checkpoint, grub-btrfs note |
+| Lynis baseline | `scripts/lynis-baseline.sh` | Audit runner with timestamped reports |
+| Secure Boot | `docs/SECURE-BOOT.md` | Owner-controlled key enrollment path |
 
-## How to apply Phase 1 pieces
+## How to apply everything in Phase 1
 
 ```bash
-# AppArmor
+# 1. AppArmor
 sudo pacman -S apparmor apparmor-utils
-# copy and tune profiles from configs/apparmor/
+# Copy desired profiles from configs/apparmor/ to /etc/apparmor.d/
+# Follow the workflow in configs/apparmor/README.md
 
-# Btrfs snapshots (only if root is Btrfs)
+# 2. USBGuard
+sudo pacman -S usbguard
+sudo cp configs/usbguard/usbguard.conf /etc/usbguard/
+sudo usbguard generate-policy | sudo tee /etc/usbguard/rules.conf
+sudo systemctl enable --now usbguard
+
+# 3. Btrfs snapshots (only if root is Btrfs)
 sudo ./scripts/setup-btrfs-snapper.sh
 
-# Audit baseline
+# 4. Audit baseline
 sudo ./scripts/lynis-baseline.sh
 
-# Secure Boot
-# follow docs/SECURE-BOOT.md carefully
+# 5. Secure Boot
+# Follow docs/SECURE-BOOT.md carefully with a recovery plan
 ```
 
-## Remaining Phase 1 work
+## What remains
 
-- Real-world testing and refinement of AppArmor profiles
-- Additional service profiles (e.g. common daemons)
-- Tighter USBGuard rules generated from actual hardware
-- Optional automation improvements for snapper + bootable snapshots
+- Real hardware testing and profile tuning via `aa-logprof`
+- Per-machine USBGuard rule finalization
+- Optional bootable snapshot integration testing with grub-btrfs or systemd-boot alternatives
 
-Phase 1 is now **initiated and partially delivered**. Further refinement happens through testing and contribution.
+Phase 1 core deliverables are in the repository and ready for application and testing.
