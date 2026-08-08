@@ -1,39 +1,57 @@
-# BLACKHILL ISO Build Instructions
+# BLACKHILL ISO — Phase 4
 
-Building a custom live ISO requires an Arch Linux host with the `archiso` package installed.
+This directory contains a complete Archiso profile skeleton for building a BLACKHILL live / install medium.
 
-## Steps (high level)
+## Requirements
 
-1. Install archiso:
-   ```bash
-   sudo pacman -S archiso
-   ```
+- Arch Linux host
+- `archiso` package
+- Sufficient disk space (~10GB+ free recommended)
+- Root privileges for the build
 
-2. Copy the official releng profile as a starting point:
-   ```bash
-   cp -r /usr/share/archiso/configs/releng ./profile
-   ```
+```bash
+sudo pacman -S archiso
+```
 
-3. Customize:
-   - Edit `profile/packages.x86_64` — add blackhill packages, hyprland, security tools, etc.
-   - Place branding files into `profile/airootfs/etc/` (os-release, motd, issue, etc.)
-   - Add the hardening configs and scripts into the airootfs.
-   - Modify bootloader branding.
+## Quick build
 
-4. Build:
-   ```bash
-   sudo mkarchiso -v -w work -o out ./profile
-   ```
+```bash
+cd iso
+cp -r profile work-profile   # optional working copy
+sudo mkarchiso -v -w work -o out profile
+```
 
-5. Test the resulting ISO in a VM before writing to USB.
+The resulting ISO will appear under `iso/out/`.
 
-## Current state of this repository
+## What the profile includes
 
-The recommended path today is:
+- BLACKHILL branding (`os-release`, MOTD)
+- Hardening configs (sysctl, nftables)
+- Desktop packages (Hyprland stack)
+- Live installer script (`blackhill-install`)
+- First-boot and theme hooks
 
-1. Install plain Arch.
-2. Apply the scripts and configs from this repository.
-3. Install Hyprland + the blackhill-dark theme.
-4. Install desired tools from the package list (or enable BlackArch repo).
+## Custom installer
 
-This gives you a functional BLACKHILL system without waiting for a full ISO.
+On the live system:
+
+```bash
+sudo blackhill-install
+```
+
+Or follow the manual path in the main project docs.
+
+## Signing
+
+See `docs/ISO-SIGNING.md` for release signing and Secure Boot notes.
+
+## Important
+
+Building a fully tested, production-quality ISO still requires:
+
+1. Running `mkarchiso` on a real Arch host
+2. Testing boot in VMs and on hardware
+3. Iterating on package list and startup services
+4. Optional: publishing checksums and signatures
+
+The profile in this repository is the complete blueprint for that process.

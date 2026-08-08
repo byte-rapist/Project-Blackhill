@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# BLACKHILL Live Installer (Phase 4)
+# Guided helper that wraps a careful Arch installation and then applies BLACKHILL.
+# This is intentionally conservative — it does not wipe disks without confirmation.
+
+set -euo pipefail
+
+if [[ $EUID -ne 0 ]]; then
+  echo "Run as root: sudo blackhill-install"
+  exit 1
+fi
+
+echo "=============================================="
+echo "  BLACKHILL Installer"
+echo "  Phase 4 — Live Environment"
+echo "=============================================="
+echo
+echo "This installer will:"
+echo "  1. Help you prepare disks (YOU must confirm destructive steps)"
+echo "  2. Run a standard Arch installation path"
+echo "  3. Apply BLACKHILL hardening and desktop configuration"
+echo
+echo "It does NOT automatically wipe disks."
+echo "For full control, use the official Arch installation guide and then"
+echo "apply the Project-Blackhill repository scripts."
+echo
+read -rp "Continue with guided overview? [y/N] " ans
+if [[ ! "$ans" =~ ^[Yy]$ ]]; then
+  echo "Aborted."
+  exit 0
+fi
+
+echo
+echo "=== Recommended path ==="
+echo
+echo "1. Partition and encrypt disks (LUKS2 + Btrfs recommended)"
+echo "2. pacstrap the base system"
+echo "3. arch-chroot and complete Arch install (bootloader, users, network)"
+echo "4. Clone Project-Blackhill inside the new system"
+echo "5. Run:"
+echo "     sudo ./scripts/apply-hardening.sh"
+echo "     ./scripts/first-boot.sh"
+echo "6. Install meta-packages from packages/ if desired"
+echo
+echo "Full documentation:"
+echo "  https://github.com/byte-rapist/Project-Blackhill/blob/main/docs/INSTALL.md"
+echo
+echo "For a more automated future installer, track Phase 4/5 development."
+echo
+echo "BLACKHILL — Own the machine."
