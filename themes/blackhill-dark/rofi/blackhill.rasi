@@ -1,0 +1,32 @@
+/* BLACKHILL Rofi theme */
+
+* {
+  background-color: #0A0A0A;
+  text-color: #E8E8E8;
+  font: "Inter 12";
+}
+
+window {
+  background-color: #0A0A0A;
+  border: 2px solid #2A2A2A;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+inputbar {
+  background-color: #141414;
+  border: 1px solid #2A2A2A;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+}
+
+prompt {
+  text-color: #C41E3A;
+  margin-right: 8px;
+}
+
+element selected {
+  background-color: #8B0000;
+  text-color: #FFFFFF;
+}

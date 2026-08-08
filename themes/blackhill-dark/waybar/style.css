@@ -1,0 +1,43 @@
+/* BLACKHILL Waybar – premium dark */
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "Inter", "JetBrains Mono", sans-serif;
+  font-size: 13px;
+  min-height: 0;
+}
+
+window#waybar {
+  background-color: rgba(10, 10, 10, 0.92);
+  color: #E8E8E8;
+  border-bottom: 1px solid #2A2A2A;
+}
+
+#workspaces button {
+  padding: 0 8px;
+  background-color: transparent;
+  color: #A0A0A0;
+  border-bottom: 2px solid transparent;
+}
+
+#workspaces button.active {
+  color: #C41E3A;
+  border-bottom: 2px solid #8B0000;
+}
+
+#clock,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#tray {
+  padding: 0 10px;
+  margin: 0 2px;
+  color: #E8E8E8;
+}
+
+#network.disconnected {
+  color: #C62828;
+}
