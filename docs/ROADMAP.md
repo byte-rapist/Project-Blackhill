@@ -1,50 +1,54 @@
 # BLACKHILL Roadmap
 
 ## Phase 0 — Foundation (Completed)
-- [x] Project structure and professional repository layout
-- [x] Architecture and installation documentation
+- [x] Professional repository layout
+- [x] LICENSE, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT
+- [x] VERSION + CHANGELOG
+- [x] Full documentation set (Install, Architecture, Hardening, FAQ, Roadmap)
 - [x] Aggressive sysctl hardening profile
 - [x] nftables default-deny ruleset
 - [x] Hardening applicator script
-- [x] Hyprland premium configuration
-- [x] Blackhill Dark theme (GTK, Waybar, Rofi)
-- [x] Custom icon theme (core set)
+- [x] First-boot helper script
+- [x] Hyprland + Hyprlock + Hypridle + Hyprpaper configs
+- [x] Blackhill Dark theme (GTK 3/4, Waybar, Rofi, Kitty)
+- [x] Custom icon theme (core scalable SVGs)
 - [x] Branding (os-release, MOTD)
-- [x] LICENSE, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT
-- [x] Tool recommendation list
+- [x] Kernel cmdline recommendations
+- [x] AppArmor directory + guidance
+- [x] Tool recommendation list + packages notes
+- [x] ISO profile skeleton
+- [x] Makefile for common tasks
 
-## Phase 1 — Hardened Base (In Progress)
-- [ ] Expanded AppArmor profiles for common services
-- [ ] Kernel command-line snippets for GRUB and systemd-boot
+## Phase 1 — Hardened Base (Next)
+- [ ] Expanded AppArmor profiles for key services
 - [ ] USBGuard baseline policy
-- [ ] First-boot / post-install wizard script
-- [ ] Lynis / audit integration helpers
-- [ ] Btrfs + snapper recommended layout documentation and helpers
+- [ ] Btrfs + snapper helper scripts and documentation
+- [ ] More comprehensive first-boot / post-install wizard
+- [ ] Lynis integration helpers and baseline audit profile
 
 ## Phase 2 — Premium UI Completion
-- [ ] Full icon set (mimetypes, devices, more status/actions)
+- [ ] Expanded icon set (mimetypes, devices, more actions/status)
 - [ ] Cursor theme
-- [ ] Hyprlock + hypridle polished configs
-- [ ] Kitty / Alacritty theme files
-- [ ] Optional security status modules for waybar
+- [ ] Polished security status modules for Waybar
 - [ ] Simple Control Center (TUI or lightweight GUI)
+- [ ] Additional terminal and application themes
 
 ## Phase 3 — Packaging & Tools
-- [ ] Meta-package PKGBUILDs (`blackhill-base`, `blackhill-desktop`, etc.)
-- [ ] Decision and documentation on BlackArch integration
-- [ ] Defensive tooling packaging notes
+- [ ] Meta-package PKGBUILDs
+- [ ] Clear BlackArch integration documentation
+- [ ] Defensive and offensive curated sets
 
 ## Phase 4 — Distribution
 - [ ] Complete Archiso profile
-- [ ] Custom installer that applies BLACKHILL profile and encryption defaults
+- [ ] Custom installer applying BLACKHILL profile + encryption defaults
 - [ ] Reproducible ISO builds
 - [ ] Signing and Secure Boot guidance
 
 ## Phase 5 — Public Releases
-- [ ] Versioned releases with changelogs
-- [ ] Website / documentation site
+- [ ] Versioned GitHub Releases with changelogs
+- [ ] Documentation site
 - [ ] Community processes and security advisory workflow
-- [ ] Continuous integration for configs and ISO builds
+- [ ] CI for configs and future ISO builds
 
 ## Long-term
 - Optional SELinux path
