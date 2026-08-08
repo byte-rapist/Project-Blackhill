@@ -1,36 +1,55 @@
-# Phase 2 — Premium UI Polish (Complete)
+# Phase 2 — Premium UI Polish (Excellence Pass)
 
-## Delivered
+**Status: Complete + quality upgraded**
 
-| Item | Location | Description |
-|------|----------|-------------|
-| Expanded icons | `themes/blackhill-dark/icons/Blackhill/scalable/` | Security status, actions, devices, mimetypes |
-| Cursor theme guidance | `themes/blackhill-dark/cursors/README.md` | Structure + recommendations until native pack exists |
-| Waybar security module | `configs/waybar/config` + `scripts/security-status.sh` | Live security status in the bar |
-| Control Center TUI | `scripts/blackhill-control.sh` | Lightweight operator control panel |
+## What was improved
 
-## How to enable
+### Control Center (`scripts/blackhill-control.sh`)
+- Premium TUI with clear visual hierarchy and colour status indicators
+- Security overview with firewall, AppArmor, kernel, Secure Boot, snapshots, session
+- Firewall start/stop/enable/disable + rule viewer
+- Snapshot list + one-shot checkpoint creation
+- Lynis audit launcher
+- Lock screen integration
+- Zero extra dependencies
+
+### Waybar security module
+- Scoring model (0–4) across firewall, AppArmor, kptr_restrict, session type
+- States: `SECURE` / `CHECK` / `RISK` with matching CSS classes
+- Rich tooltip showing each check and any issues
+- Designed for the Blackhill colour language
+
+### Icons
+Additional scalable SVGs:
+- Security high / medium / low
+- Network wireless
+- System search, view-refresh
+- Folder documents, folder download
+- Computer, hard disk, text, executable, etc.
+
+### Cursor theme
+Structure and clear guidance for a native pack (binary cursors require generation tools). High-quality dark theme recommendation provided for immediate use.
+
+### Theme CSS
+Waybar style updated to colour the security module correctly (green / amber / red).
+
+## Enable everything
 
 ```bash
-# Icons (re-run theme installer)
+# Theme + icons
 cd themes/blackhill-dark && ./install-theme.sh
 
-# Waybar security module
+# Waybar
 mkdir -p ~/.config/waybar/scripts
 cp configs/waybar/config ~/.config/waybar/
 cp configs/waybar/scripts/security-status.sh ~/.config/waybar/scripts/
+cp themes/blackhill-dark/waybar/style.css ~/.config/waybar/
 chmod +x ~/.config/waybar/scripts/security-status.sh
-# Restart waybar
+# restart waybar
 
 # Control Center
 chmod +x scripts/blackhill-control.sh
 ./scripts/blackhill-control.sh
 ```
 
-## Notes
-
-- A fully custom cursor theme requires generated Xcursor binaries; guidance is provided so it can be completed later.
-- The Control Center is intentionally a simple TUI so it has zero extra dependencies beyond common tools.
-- More icons can still be added over time; the structure and core set are in place.
-
-Phase 2 is complete.
+Phase 2 is now at the highest practical quality level for a configuration/theme foundation.
