@@ -1,0 +1,62 @@
+/* BLACKHILL Dark – GTK4 Theme (same language as GTK3) */
+@define-color bg_color #0A0A0A;
+@define-color fg_color #E8E8E8;
+@define-color base_color #141414;
+@define-color selected_bg_color #8B0000;
+@define-color selected_fg_color #FFFFFF;
+
+* {
+  color: @fg_color;
+  background-color: @bg_color;
+  border-color: #2A2A2A;
+}
+
+window, dialog, .background {
+  background-color: @bg_color;
+  color: @fg_color;
+}
+
+headerbar, .titlebar {
+  background-color: #141414;
+  border-bottom: 1px solid #2A2A2A;
+  min-height: 42px;
+}
+
+button {
+  background-color: #1E1E1E;
+  border: 1px solid #2A2A2A;
+  border-radius: 6px;
+  color: @fg_color;
+  padding: 6px 12px;
+}
+
+button:hover {
+  background-color: #2A2A2A;
+  border-color: #8B0000;
+}
+
+button:active, button:checked {
+  background-color: #8B0000;
+  border-color: #C41E3A;
+  color: #FFFFFF;
+}
+
+entry {
+  background-color: #141414;
+  border: 1px solid #2A2A2A;
+  border-radius: 6px;
+  color: @fg_color;
+}
+
+entry:focus {
+  border-color: #8B0000;
+}
+
+row:selected {
+  background-color: #8B0000;
+  color: #FFFFFF;
+}
+
+switch:checked {
+  background-color: #8B0000;
+}
