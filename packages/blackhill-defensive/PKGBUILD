@@ -1,6 +1,6 @@
 # Maintainer: BLACKHILL Project
 pkgname=blackhill-defensive
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=1
 pkgdesc="BLACKHILL defensive meta-package — blue-team, audit, and monitoring tools"
 arch=('any')
@@ -27,7 +27,6 @@ depends=(
 )
 optdepends=(
   'osquery: endpoint visibility (AUR)'
-  'wazuh-agent: SIEM agent (if packaged)'
   'chkrootkit: additional rootkit checks'
 )
 provides=('blackhill-defensive')

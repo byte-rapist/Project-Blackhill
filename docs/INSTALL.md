@@ -1,8 +1,8 @@
 # BLACKHILL Installation Guide
 
-Turn a clean Arch Linux system into BLACKHILL using this repository.
+Turn a clean Arch Linux system into BLACKHILL.
 
-> **Status**: Foundation / pre-alpha (v0.1.0). Suitable for experienced Arch users.
+> **Status**: Foundation + Phases 1–4 available. Video playback included in the desktop stack.
 
 ## Prerequisites
 
@@ -23,41 +23,45 @@ cd Project-Blackhill
 sudo ./scripts/apply-hardening.sh
 ```
 
-Review:
-- `/etc/sysctl.d/99-blackhill-hardening.conf`
-- `/etc/nftables.conf`
-
-Optionally start the firewall:
-
-```bash
-sudo systemctl enable --now nftables
-```
-
 ## 3. Kernel
 
 ```bash
 sudo pacman -S linux-hardened linux-hardened-headers
 ```
 
-Apply recommended parameters from `configs/kernel/cmdline-recommended.txt` via your bootloader, then rebuild the boot configuration.
+Apply recommended parameters from `configs/kernel/cmdline-recommended.txt`.
 
-## 4. Desktop stack
+## 4. Desktop + video stack
+
+### Option A — Meta-packages (recommended)
+
+```bash
+cd packages/blackhill-base && makepkg -si
+cd ../blackhill-desktop && makepkg -si
+```
+
+This pulls Hyprland, the UI stack, **mpv, ffmpeg, codecs**, and related tools.
+
+### Option B — Manual
 
 ```bash
 sudo pacman -S hyprland waybar kitty rofi thunar \
   xdg-desktop-portal-hyprland polkit-gnome \
   grim slurp wl-clipboard brightnessctl \
-  hyprlock hypridle hyprpaper
+  hyprlock hypridle hyprpaper \
+  mpv ffmpeg yt-dlp libva libva-utils \
+  gst-libav gst-plugins-base gst-plugins-good \
+  gst-plugins-bad gst-plugins-ugly
 ```
 
-## 5. First-boot setup (theme + configs)
+Add your GPU VA-API driver (see [MEDIA.md](MEDIA.md)).
+
+## 5. First-boot (theme + configs)
 
 ```bash
 chmod +x scripts/first-boot.sh themes/blackhill-dark/install-theme.sh
 ./scripts/first-boot.sh
 ```
-
-This installs Hyprland configs, the full Blackhill Dark theme, Waybar, Kitty, and prints the remaining checklist.
 
 ## 6. Branding (as root)
 
@@ -71,28 +75,10 @@ sudo cp branding/motd /etc/motd
 ```bash
 reboot
 # Log into Hyprland
+mpv --version
 lynis audit system
 ```
 
-## 8. Post-install checklist
+## Post-install
 
-See **[docs/POST-INSTALL.md](POST-INSTALL.md)** for the full verification list.
-
-## Optional: Extended tooling
-
-- Review `packages/blackhill-tools.txt`
-- Or enable the BlackArch repository for a very large security toolset, then keep the BLACKHILL hardening and theme layer on top.
-
-## Troubleshooting
-
-- **Theme not applying**: confirm files in `~/.themes` and `~/.local/share/icons`, then use nwg-look or gsettings.
-- **Firewall too strict**: edit `/etc/nftables.conf` and reload.
-- **AppArmor not active**: ensure kernel cmdline contains the LSM parameters and the service is enabled.
-
-## Documentation Index
-
-- [Architecture](ARCHITECTURE.md)
-- [Hardening Rationale](HARDENING.md)
-- [Post-Install Checklist](POST-INSTALL.md)
-- [FAQ](FAQ.md)
-- [Roadmap](ROADMAP.md)
+See [POST-INSTALL.md](POST-INSTALL.md) and [MEDIA.md](MEDIA.md).

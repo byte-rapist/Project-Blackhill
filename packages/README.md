@@ -1,35 +1,38 @@
-# BLACKHILL Packages — Phase 3
+# BLACKHILL Packages
 
 ## Meta-packages
 
 | Package | Purpose |
 |---------|--------|
-| `blackhill-base` | Core hardening dependencies + branding helpers |
-| `blackhill-desktop` | Hyprland + theme stack + UI components |
-| `blackhill-offensive` | Curated offensive / red-team oriented tools |
-| `blackhill-defensive` | Blue-team / defensive / audit tools |
-| `blackhill-full` | Everything above |
+| `blackhill-base` | Core hardening dependencies |
+| `blackhill-desktop` | Hyprland + theme stack + **video playback (mpv, ffmpeg, codecs)** |
+| `blackhill-offensive` | Curated offensive tools |
+| `blackhill-defensive` | Blue-team / audit tools |
+| `blackhill-full` | Everything |
 
-These are **meta-packages** (they pull in dependencies). They are intended to be built with `makepkg` on an Arch system and installed locally, or later published to a custom repository.
+## Video support (included in blackhill-desktop)
 
-## Build & install (local)
+- **Player:** `mpv` (best Wayland/Hyprland experience)
+- **Engine:** `ffmpeg`
+- **Streaming helper:** `yt-dlp`
+- **GStreamer plugins:** full set for broad format support
+- **Hardware decode:** install the matching optdepend for your GPU:
+  - Intel → `intel-media-driver`
+  - AMD → `libva-mesa-driver`
+  - NVIDIA → `libva-nvidia-driver` (where applicable)
 
 ```bash
-cd packages/blackhill-base
-makepkg -si
+mpv video.mp4
+mpv https://youtu.be/...
+```
 
-cd ../blackhill-desktop
-makepkg -si
+## Build & install
 
-# Optional:
-cd ../blackhill-offensive && makepkg -si
-cd ../blackhill-defensive && makepkg -si
-# or
+```bash
+cd packages/blackhill-base && makepkg -si
+cd ../blackhill-desktop && makepkg -si
+# optional tool sets or:
 cd ../blackhill-full && makepkg -si
 ```
 
-## Notes
-
-- Some tools live in the AUR or BlackArch. The PKGBUILDs prefer official repos where possible and document optional extras.
-- After installing `blackhill-base` / `blackhill-desktop`, still run the hardening and theme scripts from this repository for full effect.
-- For the largest tool collection, enable BlackArch (see `docs/BLACKARCH.md`) and then layer BLACKHILL hardening + desktop on top.
+Still run the repo hardening and theme scripts for the full BLACKHILL experience.

@@ -1,8 +1,8 @@
 # Maintainer: BLACKHILL Project
 pkgname=blackhill-desktop
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=1
-pkgdesc="BLACKHILL desktop meta-package — Hyprland and premium UI stack"
+pkgdesc="BLACKHILL desktop meta-package — Hyprland, premium UI, and media playback"
 arch=('any')
 url="https://github.com/byte-rapist/Project-Blackhill"
 license=('MIT')
@@ -24,12 +24,27 @@ depends=(
   'hyprpaper'
   'ttf-jetbrains-mono-nerd'
   'otf-font-awesome'
+  # Video / media
+  'mpv'
+  'ffmpeg'
+  'yt-dlp'
+  'libva'
+  'libva-utils'
+  'gst-libav'
+  'gst-plugins-base'
+  'gst-plugins-good'
+  'gst-plugins-bad'
+  'gst-plugins-ugly'
 )
 optdepends=(
   'nwg-look: GTK theme switcher'
   'firefox: recommended browser'
   'pavucontrol: audio control'
   'nm-connection-editor: network GUI'
+  'intel-media-driver: Intel hardware video decode'
+  'libva-mesa-driver: AMD/Mesa hardware video decode'
+  'libva-nvidia-driver: NVIDIA VA-API (where supported)'
+  'vlc: alternative media player'
 )
 provides=('blackhill-desktop')
 

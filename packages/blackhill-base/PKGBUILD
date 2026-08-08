@@ -1,6 +1,6 @@
 # Maintainer: BLACKHILL Project
 pkgname=blackhill-base
-pkgver=0.3.0
+pkgver=0.3.1
 pkgrel=1
 pkgdesc="BLACKHILL core meta-package — hardening dependencies and base tools"
 arch=('any')
@@ -27,10 +27,7 @@ optdepends=(
   'clamav: antivirus engine'
 )
 provides=('blackhill-base')
-conflicts=()
-replaces=()
 
 package() {
-  # Meta-package only — no files. Configs come from the Project-Blackhill repo.
   true
 }
