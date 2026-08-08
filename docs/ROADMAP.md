@@ -3,34 +3,26 @@
 ## Phase 0 — Foundation ✅ COMPLETE
 
 - [x] Professional repository layout and metadata
-- [x] LICENSE, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, VERSION, CHANGELOG
-- [x] Full documentation (Install, Architecture, Hardening, FAQ, Post-Install, Roadmap)
-- [x] Sysctl hardening + nftables default-deny
-- [x] Hardening script + first-boot wizard
-- [x] Complete Hyprland ecosystem (hyprland, hyprlock, hypridle, hyprpaper)
-- [x] Blackhill Dark theme stack (GTK, Waybar, Rofi, Kitty, icons)
-- [x] USBGuard baseline
-- [x] Kernel cmdline recommendations
-- [x] AppArmor guidance
-- [x] Tool lists + packages structure
-- [x] Archiso profile skeleton
-- [x] Makefile
+- [x] Full documentation set
+- [x] Hardening configs and scripts
+- [x] Complete Hyprland + theme stack
+- [x] Branding, tools list, ISO skeleton
 
-**The foundation is finished.** Users can clone the repository and produce a hardened, premium dark, root-first BLACKHILL system on top of Arch Linux.
+## Phase 1 — Hardened Base 🔵 IN PROGRESS
 
-## Phase 1 — Hardened Base (Next)
-
-- [ ] Expanded AppArmor profiles for key services
-- [ ] More complete USBGuard and device policies
-- [ ] Btrfs + snapper automation helpers
-- [ ] Deeper Lynis / audit integration
-- [ ] Secure Boot user-key guidance
+- [x] AppArmor profile skeletons for key services
+- [x] Expanded USBGuard baseline and guidance
+- [x] Btrfs + snapper helper scripts and documentation
+- [x] Lynis / audit integration helpers
+- [x] Secure Boot user-key guidance
+- [ ] Testing and refinement of the above on real systems
+- [ ] Additional service profiles as needed
 
 ## Phase 2 — Premium UI Polish
 
-- [ ] Expanded icon set (mimetypes, devices, extra status/actions)
+- [ ] Expanded icon set
 - [ ] Cursor theme
-- [ ] Waybar security status modules
+- [ ] Waybar security modules
 - [ ] Lightweight Control Center
 
 ## Phase 3 — Packaging
@@ -49,10 +41,3 @@
 - [ ] Versioned GitHub Releases
 - [ ] Documentation site
 - [ ] CI and security advisory process
-
-## Long-term
-
-- Optional SELinux path
-- Measured boot / attestation helpers
-- Hardware-specific profiles
-- Official mirrors and package infrastructure

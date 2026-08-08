@@ -1,22 +1,45 @@
-# AppArmor Profiles for BLACKHILL
+# AppArmor Profiles — BLACKHILL Phase 1
 
-This directory will contain AppArmor profiles tuned for the BLACKHILL security model.
+## Goal
 
-## Status
+Provide practical, enforce-mode-ready profiles for high-value targets while remaining usable on a root-capable operator system.
 
-Currently a placeholder for future profiles. Recommended approach:
+## Current profiles (skeletons)
 
-1. Install `apparmor` and `apparmor-utils`
-2. Enable the service
-3. Start with upstream profiles and tighten them
-4. Use `aa-genprof` / `aa-logprof` for custom applications
+| Profile | Target | Status |
+|---------|--------|--------|
+| `usr.bin.firefox` | Firefox | Skeleton — tighten with aa-logprof |
+| `usr.sbin.sshd` | OpenSSH server | Skeleton |
+| `usr.bin.pacman` | pacman | Skeleton (careful — package managers are complex) |
+| `usr.bin.pass` | pass / password-store | Basic |
 
-## Priority targets for profiles
+## How to use
 
-- sshd
-- firefox / chromium
-- package managers (pacman helpers)
-- network-facing services
-- browsers and document viewers
+1. Install AppArmor:
+   ```bash
+   sudo pacman -S apparmor apparmor-utils
+   sudo systemctl enable --now apparmor
+   ```
 
-Profiles should prefer enforce mode for critical services while remaining practical for a root-capable operator system.
+2. Ensure kernel cmdline contains:
+   ```
+   apparmor=1 lsm=landlock,lockdown,yama,apparmor
+   ```
+
+3. Copy desired profiles to `/etc/apparmor.d/` and load:
+   ```bash
+   sudo cp configs/apparmor/usr.bin.firefox /etc/apparmor.d/
+   sudo apparmor_parser -r /etc/apparmor.d/usr.bin.firefox
+   ```
+
+4. Start in complain mode first, then enforce after tuning:
+   ```bash
+   sudo aa-complain /etc/apparmor.d/usr.bin.firefox
+   # use the application, then:
+   sudo aa-logprof
+   sudo aa-enforce /etc/apparmor.d/usr.bin.firefox
+   ```
+
+## Philosophy
+
+Profiles should reduce the blast radius of compromised applications without making the system painful for a skilled owner who needs root and low-level access. Prefer enforce mode for network-facing and browser processes; keep the rest practical.

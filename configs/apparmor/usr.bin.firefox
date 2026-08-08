@@ -1,0 +1,52 @@
+# BLACKHILL AppArmor profile skeleton for Firefox
+# Place in /etc/apparmor.d/usr.bin.firefox
+# Start in complain mode, then refine with aa-logprof
+
+#include <tunables/global>
+
+/usr/lib/firefox/firefox {
+  #include <abstractions/base>
+  #include <abstractions/fonts>
+  #include <abstractions/nameservice>
+  #include <abstractions/user-tmp>
+  #include <abstractions/audio>
+  #include <abstractions/dbus-session>
+
+  # Binary and libraries
+  /usr/lib/firefox/** rix,
+  /usr/bin/firefox rix,
+
+  # Config and profile data
+  owner @{HOME}/.mozilla/** rwk,
+  owner @{HOME}/.cache/mozilla/** rwk,
+
+  # Downloads (adjust path as needed)
+  owner @{HOME}/Downloads/ rw,
+  owner @{HOME}/Downloads/** rw,
+
+  # Basic device and system access required by browsers
+  /dev/dri/** rw,
+  /sys/devices/** r,
+  /proc/*/maps r,
+  /proc/*/stat r,
+  /proc/*/status r,
+  /etc/firefox/** r,
+  /etc/hosts r,
+  /etc/resolv.conf r,
+
+  # Network
+  network inet stream,
+  network inet6 stream,
+  network inet dgram,
+  network inet6 dgram,
+
+  # Deny dangerous capabilities by default (refine as needed)
+  deny capability sys_admin,
+  deny capability sys_module,
+  deny capability sys_rawio,
+
+  # Deny writing to system paths
+  deny /etc/** w,
+  deny /usr/** w,
+  deny /boot/** w,
+}

@@ -1,0 +1,50 @@
+# BLACKHILL AppArmor profile skeleton for sshd
+# Place in /etc/apparmor.d/usr.sbin.sshd
+# Review carefully before enforcing
+
+#include <tunables/global>
+
+/usr/bin/sshd {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/openssl>
+  #include <abstractions/authentication>
+
+  /usr/bin/sshd rix,
+  /usr/sbin/sshd rix,
+
+  # Config
+  /etc/ssh/** r,
+  /etc/passwd r,
+  /etc/group r,
+  /etc/shadow r,
+  /etc/security/** r,
+
+  # Runtime
+  /run/sshd.pid rwk,
+  /run/sshd/** rwk,
+  /var/empty/** rw,
+  /var/log/auth.log w,
+  /var/log/secure w,
+
+  # User keys and sessions (necessary)
+  owner @{HOME}/.ssh/ r,
+  owner @{HOME}/.ssh/** r,
+  /home/*/.ssh/authorized_keys r,
+
+  # Network
+  network inet stream,
+  network inet6 stream,
+
+  # Capabilities commonly required
+  capability net_bind_service,
+  capability sys_chroot,
+  capability setuid,
+  capability setgid,
+  capability audit_write,
+
+  # Deny unnecessary raw access
+  deny capability sys_admin,
+  deny capability sys_module,
+  deny capability sys_rawio,
+}
