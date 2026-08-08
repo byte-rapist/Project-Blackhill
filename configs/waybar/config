@@ -5,7 +5,7 @@
     "spacing": 4,
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["network", "cpu", "memory", "battery", "tray"],
+    "modules-right": ["custom/security", "network", "cpu", "memory", "battery", "tray"],
 
     "hyprland/workspaces": {
         "format": "{name}",
@@ -17,16 +17,22 @@
         "tooltip-format": "{:%Y-%m-%d}"
     },
 
-    "network": {
-        "format-wifi": "{essid}",
-        "format-ethernet": "ETH",
-        "format-disconnected": "OFFLINE",
+    "custom/security": {
+        "exec": "~/.config/waybar/scripts/security-status.sh",
+        "interval": 30,
+        "return-type": "json",
+        "format": "{}",
         "tooltip": true
     },
 
+    "network": {
+        "format-wifi": "{essid}",
+        "format-ethernet": "ETH",
+        "format-disconnected": "OFFLINE"
+    },
+
     "cpu": {
-        "format": "CPU {usage}%",
-        "tooltip": false
+        "format": "CPU {usage}%"
     },
 
     "memory": {
@@ -35,7 +41,7 @@
 
     "battery": {
         "format": "{capacity}%",
-        "format-charging": "{capacity}% "
+        "format-charging": "{capacity}%+"
     },
 
     "tray": {
