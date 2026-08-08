@@ -1,0 +1,26 @@
+# BLACKHILL recommended kernel command line parameters
+# Add these to your bootloader configuration (GRUB, systemd-boot, etc.)
+
+# Core LSM + AppArmor
+apparmor=1 lsm=landlock,lockdown,yama,apparmor
+
+# Lockdown mode (choose one)
+lockdown=integrity
+# lockdown=confidentiality
+
+# Memory initialization
+init_on_alloc=1 init_on_free=1
+
+# Allocator hardening
+page_alloc.shuffle=1 slab_nomerge
+
+# CPU vulnerability mitigations (aggressive)
+spectre_v2=on spec_store_bypass_disable=on
+l1tf=full,force l1d_flush=on
+gather_data_sampling=force
+
+# Other
+vsyscall=none randomize_kstack_offset=1
+
+# Example full line for GRUB:
+# GRUB_CMDLINE_LINUX_DEFAULT="apparmor=1 lsm=landlock,lockdown,yama,apparmor lockdown=integrity init_on_alloc=1 init_on_free=1 page_alloc.shuffle=1 spectre_v2=on spec_store_bypass_disable=on quiet"
