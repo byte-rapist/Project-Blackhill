@@ -1,6 +1,6 @@
 [Icon Theme]
 Name=Blackhill
-Comment=Premium dark icon theme for BLACKHILL OS – clean, recognizable, Windows-inspired metaphors in matte black + deep crimson
+Comment=Premium dark icon theme for BLACKHILL OS – matte black + deep crimson
 Inherits=Adwaita,hicolor
 Example=folder
 
@@ -30,6 +30,20 @@ MaxSize=512
 [scalable/status]
 Size=128
 Context=Status
+Type=Scalable
+MinSize=8
+MaxSize=512
+
+[scalable/devices]
+Size=128
+Context=Devices
+Type=Scalable
+MinSize=8
+MaxSize=512
+
+[scalable/mimetypes]
+Size=128
+Context=MimeTypes
 Type=Scalable
 MinSize=8
 MaxSize=512

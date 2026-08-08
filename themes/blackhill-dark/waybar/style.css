@@ -1,4 +1,4 @@
-/* BLACKHILL Waybar – premium dark */
+/* BLACKHILL Waybar – premium dark + security module */
 
 * {
   border: none;
@@ -31,11 +31,29 @@ window#waybar {
 #cpu,
 #memory,
 #network,
-#pulseaudio,
 #tray {
   padding: 0 10px;
   margin: 0 2px;
   color: #E8E8E8;
+}
+
+#custom-security {
+  padding: 0 10px;
+  margin: 0 2px;
+  color: #C41E3A;
+  font-weight: 600;
+}
+
+#custom-security.security-high {
+  color: #2E7D32;
+}
+
+#custom-security.security-medium {
+  color: #F9A825;
+}
+
+#custom-security.security-low {
+  color: #C62828;
 }
 
 #network.disconnected {
