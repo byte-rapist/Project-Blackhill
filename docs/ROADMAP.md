@@ -1,56 +1,57 @@
 # BLACKHILL Roadmap
 
-## Phase 0 — Foundation (Completed)
-- [x] Professional repository layout
-- [x] LICENSE, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT
-- [x] VERSION + CHANGELOG
-- [x] Full documentation set (Install, Architecture, Hardening, FAQ, Roadmap)
-- [x] Aggressive sysctl hardening profile
-- [x] nftables default-deny ruleset
-- [x] Hardening applicator script
-- [x] First-boot helper script
-- [x] Hyprland + Hyprlock + Hypridle + Hyprpaper configs
-- [x] Blackhill Dark theme (GTK 3/4, Waybar, Rofi, Kitty)
-- [x] Custom icon theme (core scalable SVGs)
-- [x] Branding (os-release, MOTD)
+## Phase 0 — Foundation ✅ COMPLETE
+
+- [x] Professional repository layout and metadata
+- [x] LICENSE, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, VERSION, CHANGELOG
+- [x] Full documentation (Install, Architecture, Hardening, FAQ, Post-Install, Roadmap)
+- [x] Sysctl hardening + nftables default-deny
+- [x] Hardening script + first-boot wizard
+- [x] Complete Hyprland ecosystem (hyprland, hyprlock, hypridle, hyprpaper)
+- [x] Blackhill Dark theme stack (GTK, Waybar, Rofi, Kitty, icons)
+- [x] USBGuard baseline
 - [x] Kernel cmdline recommendations
-- [x] AppArmor directory + guidance
-- [x] Tool recommendation list + packages notes
-- [x] ISO profile skeleton
-- [x] Makefile for common tasks
+- [x] AppArmor guidance
+- [x] Tool lists + packages structure
+- [x] Archiso profile skeleton
+- [x] Makefile
+
+**The foundation is finished.** Users can clone the repository and produce a hardened, premium dark, root-first BLACKHILL system on top of Arch Linux.
 
 ## Phase 1 — Hardened Base (Next)
+
 - [ ] Expanded AppArmor profiles for key services
-- [ ] USBGuard baseline policy
-- [ ] Btrfs + snapper helper scripts and documentation
-- [ ] More comprehensive first-boot / post-install wizard
-- [ ] Lynis integration helpers and baseline audit profile
+- [ ] More complete USBGuard and device policies
+- [ ] Btrfs + snapper automation helpers
+- [ ] Deeper Lynis / audit integration
+- [ ] Secure Boot user-key guidance
 
-## Phase 2 — Premium UI Completion
-- [ ] Expanded icon set (mimetypes, devices, more actions/status)
+## Phase 2 — Premium UI Polish
+
+- [ ] Expanded icon set (mimetypes, devices, extra status/actions)
 - [ ] Cursor theme
-- [ ] Polished security status modules for Waybar
-- [ ] Simple Control Center (TUI or lightweight GUI)
-- [ ] Additional terminal and application themes
+- [ ] Waybar security status modules
+- [ ] Lightweight Control Center
 
-## Phase 3 — Packaging & Tools
+## Phase 3 — Packaging
+
 - [ ] Meta-package PKGBUILDs
-- [ ] Clear BlackArch integration documentation
-- [ ] Defensive and offensive curated sets
+- [ ] BlackArch integration documentation
 
 ## Phase 4 — Distribution
-- [ ] Complete Archiso profile
-- [ ] Custom installer applying BLACKHILL profile + encryption defaults
-- [ ] Reproducible ISO builds
-- [ ] Signing and Secure Boot guidance
 
-## Phase 5 — Public Releases
-- [ ] Versioned GitHub Releases with changelogs
+- [ ] Complete Archiso profile
+- [ ] Custom installer
+- [ ] Reproducible signed ISO builds
+
+## Phase 5 — Public Releases & Community
+
+- [ ] Versioned GitHub Releases
 - [ ] Documentation site
-- [ ] Community processes and security advisory workflow
-- [ ] CI for configs and future ISO builds
+- [ ] CI and security advisory process
 
 ## Long-term
+
 - Optional SELinux path
 - Measured boot / attestation helpers
 - Hardware-specific profiles

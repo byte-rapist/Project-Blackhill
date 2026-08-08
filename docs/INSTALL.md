@@ -1,120 +1,98 @@
 # BLACKHILL Installation Guide
 
-This guide describes how to turn a clean Arch Linux installation into a BLACKHILL system using the configurations and scripts in this repository.
+Turn a clean Arch Linux system into BLACKHILL using this repository.
 
-> **Status**: Foundation / pre-alpha. Suitable for experienced Arch users and developers.
+> **Status**: Foundation / pre-alpha (v0.1.0). Suitable for experienced Arch users.
 
 ## Prerequisites
 
-- A working Arch Linux installation (UEFI recommended)
+- Working Arch Linux installation (UEFI recommended)
 - Root / sudo access
 - Internet connection
-- Basic familiarity with pacman and system configuration
 
-## 1. Clone the repository
+## 1. Clone
 
 ```bash
 git clone https://github.com/byte-rapist/Project-Blackhill.git
 cd Project-Blackhill
 ```
 
-## 2. Apply base hardening
+## 2. Apply hardening
 
 ```bash
 sudo ./scripts/apply-hardening.sh
 ```
 
-Review the changes:
-
+Review:
 - `/etc/sysctl.d/99-blackhill-hardening.conf`
-- `/etc/nftables.conf` (if installed)
+- `/etc/nftables.conf`
 
-Then start the firewall if desired:
+Optionally start the firewall:
 
 ```bash
 sudo systemctl enable --now nftables
 ```
 
-## 3. Kernel recommendations
-
-Prefer the hardened kernel:
+## 3. Kernel
 
 ```bash
 sudo pacman -S linux-hardened linux-hardened-headers
 ```
 
-Add recommended kernel parameters (via `/etc/default/grub` or systemd-boot entries), for example:
+Apply recommended parameters from `configs/kernel/cmdline-recommended.txt` via your bootloader, then rebuild the boot configuration.
 
-```
-apparmor=1 lsm=landlock,lockdown,yama,apparmor lockdown=integrity
-init_on_alloc=1 init_on_free=1 page_alloc.shuffle=1
-spectre_v2=on spec_store_bypass_disable=on
-```
-
-Rebuild bootloader config afterwards.
-
-## 4. Desktop (Hyprland + BLACKHILL theme)
-
-Install the stack:
+## 4. Desktop stack
 
 ```bash
 sudo pacman -S hyprland waybar kitty rofi thunar \
   xdg-desktop-portal-hyprland polkit-gnome \
-  grim slurp wl-clipboard brightnessctl
+  grim slurp wl-clipboard brightnessctl \
+  hyprlock hypridle hyprpaper
 ```
 
-Install the theme:
+## 5. First-boot setup (theme + configs)
 
 ```bash
-cd themes/blackhill-dark
-./install-theme.sh
+chmod +x scripts/first-boot.sh themes/blackhill-dark/install-theme.sh
+./scripts/first-boot.sh
 ```
 
-Copy or symlink the Hyprland configuration:
+This installs Hyprland configs, the full Blackhill Dark theme, Waybar, Kitty, and prints the remaining checklist.
+
+## 6. Branding (as root)
 
 ```bash
-mkdir -p ~/.config/hypr
-cp ../../configs/hypr/hyprland.conf ~/.config/hypr/
+sudo cp branding/os-release /etc/os-release
+sudo cp branding/motd /etc/motd
 ```
 
-Set GTK and icon themes (using nwg-look, lxappearance, or gsettings):
+## 7. Reboot and verify
 
 ```bash
-gsettings set org.gnome.desktop.interface gtk-theme 'Blackhill-Dark'
-gsettings set org.gnome.desktop.interface icon-theme 'Blackhill'
-```
-
-Log out and start a Hyprland session.
-
-## 5. Security tools (optional)
-
-See `packages/blackhill-tools.txt` for a recommended list.
-
-You may also enable the [BlackArch](https://blackarch.org) repository for a very large curated set of security tools, then apply BLACKHILL hardening and theming on top.
-
-## 6. Encryption & snapshots (strongly recommended)
-
-- Full-disk encryption with LUKS2
-- Btrfs with snapper (or timeshift) for root and home
-
-These should ideally be configured at install time.
-
-## 7. Verification
-
-```bash
+reboot
+# Log into Hyprland
 lynis audit system
-sysctl -a | grep -E 'kptr_restrict|yama|dmesg_restrict'
-nft list ruleset
 ```
+
+## 8. Post-install checklist
+
+See **[docs/POST-INSTALL.md](POST-INSTALL.md)** for the full verification list.
+
+## Optional: Extended tooling
+
+- Review `packages/blackhill-tools.txt`
+- Or enable the BlackArch repository for a very large security toolset, then keep the BLACKHILL hardening and theme layer on top.
 
 ## Troubleshooting
 
-- If AppArmor is not enforcing, ensure the kernel command line contains the LSM parameters and that the `apparmor` service is enabled.
-- If the firewall blocks needed traffic, edit `/etc/nftables.conf` and reload.
-- Theme not applying: confirm the files are in `~/.themes` and `~/.local/share/icons` and that the desktop portal / settings daemon is running.
+- **Theme not applying**: confirm files in `~/.themes` and `~/.local/share/icons`, then use nwg-look or gsettings.
+- **Firewall too strict**: edit `/etc/nftables.conf` and reload.
+- **AppArmor not active**: ensure kernel cmdline contains the LSM parameters and the service is enabled.
 
-## Next Steps
+## Documentation Index
 
-- Read `docs/ARCHITECTURE.md`
-- Review `docs/ROADMAP.md`
-- Contribute improvements via Pull Requests
+- [Architecture](ARCHITECTURE.md)
+- [Hardening Rationale](HARDENING.md)
+- [Post-Install Checklist](POST-INSTALL.md)
+- [FAQ](FAQ.md)
+- [Roadmap](ROADMAP.md)
