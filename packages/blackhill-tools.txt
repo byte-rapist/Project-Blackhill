@@ -1,0 +1,95 @@
+# BLACKHILL recommended security & capability packages
+# These are Arch / AUR package names. Install selectively.
+# Goal: exceed typical Kali coverage with Arch freshness + extra depth.
+
+### Core / Base
+linux-hardened
+linux-hardened-headers
+apparmor
+nftables
+wireguard-tools
+fail2ban
+lynis
+aide
+firejail
+bubblewrap
+usbguard
+clamav
+rkhunter
+chkrootkit
+osquery
+
+### Information Gathering & Recon
+nmap
+masscan
+amass
+subfinder
+httpx
+nuclei
+whatweb
+theharvester
+recon-ng
+
+### Vulnerability Assessment
+nikto
+sqlmap
+wpscan
+
+### Exploitation & Frameworks
+metasploit
+exploitdb
+
+### Password Attacks
+john
+hashcat
+hydra
+medusa
+crunch
+cewl
+
+### Wireless
+aircrack-ng
+reaver
+bully
+kismet
+wifite
+gnuradio
+
+### Reverse Engineering & Binary
+ghidra
+rizin
+radare2
+cutter
+gdb
+frida-tools
+binwalk
+
+### Forensics
+autopsy
+sleuthkit
+testdisk
+photorec
+
+### Web Application
+zaproxy
+ffuf
+dirsearch
+gobuster
+wfuzz
+
+### Network & Protocol
+wireshark-qt
+tcpdump
+bettercap
+ettercap
+mitmproxy
+scapy
+
+### Defensive / Blue Team
+lynis
+aide
+audit
+yara
+
+# Recommendation: Enable the BlackArch repository for the largest curated set of tools,
+# then layer BLACKHILL hardening and UI on top.
