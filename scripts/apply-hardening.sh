@@ -1,43 +1,56 @@
 #!/usr/bin/env bash
 # BLACKHILL Hardening Applicator
-# Run as root on a fresh or existing Arch system.
-# This is a starting point — review every change.
+# Version: 0.1.0-foundation
+# Run as root on a fresh or existing Arch Linux system.
+# Review every change before applying in production.
 
 set -euo pipefail
 
 if [[ $EUID -ne 0 ]]; then
-  echo "This script must be run as root."
+  echo "[ERROR] This script must be run as root."
   exit 1
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(dirname "$SCRIPT_DIR")"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 
-echo "=== BLACKHILL Hardening Script ==="
-echo "Repository root: $REPO_ROOT"
+echo "=============================================="
+echo "  BLACKHILL Hardening Script"
+echo "  Version: 0.1.0-foundation"
+echo "=============================================="
+echo "Repository: ${REPO_ROOT}"
 echo
 
 # 1. Sysctl
-echo "[+] Installing sysctl hardening..."
-install -Dm644 "$REPO_ROOT/configs/sysctl/99-blackhill-hardening.conf" /etc/sysctl.d/99-blackhill-hardening.conf
-sysctl --system || true
-
-# 2. nftables
-echo "[+] Installing nftables ruleset..."
-if command -v nft >/dev/null; then
-  install -Dm644 "$REPO_ROOT/configs/nftables/blackhill.nft" /etc/nftables.conf
-  systemctl enable nftables || true
-  echo "    nftables rules installed. Review /etc/nftables.conf then: systemctl start nftables"
+if [[ -f "${REPO_ROOT}/configs/sysctl/99-blackhill-hardening.conf" ]]; then
+  echo "[+] Installing sysctl hardening profile..."
+  install -Dm644 "${REPO_ROOT}/configs/sysctl/99-blackhill-hardening.conf" \
+    /etc/sysctl.d/99-blackhill-hardening.conf
+  sysctl --system >/dev/null 2>&1 || true
+  echo "    Installed → /etc/sysctl.d/99-blackhill-hardening.conf"
 else
-  echo "    nftables not installed. Skipping."
+  echo "[!] sysctl profile not found, skipping."
 fi
 
-# 3. Basic SSH hardening (if sshd present)
+# 2. nftables
+if command -v nft >/dev/null 2>&1; then
+  if [[ -f "${REPO_ROOT}/configs/nftables/blackhill.nft" ]]; then
+    echo "[+] Installing nftables ruleset..."
+    install -Dm644 "${REPO_ROOT}/configs/nftables/blackhill.nft" /etc/nftables.conf
+    systemctl enable nftables >/dev/null 2>&1 || true
+    echo "    Installed → /etc/nftables.conf"
+    echo "    Review the rules, then: systemctl start nftables"
+  fi
+else
+  echo "[!] nftables not installed. Skipping firewall rules."
+fi
+
+# 3. SSH guidance
 if [[ -f /etc/ssh/sshd_config ]]; then
-  echo "[+] Applying conservative SSH hardening suggestions..."
+  echo "[+] SSH hardening recommendations:"
   cat <<EOF
-    Recommended sshd_config settings (edit manually):
-      PermitRootLogin no          # or prohibit-password
+    Edit /etc/ssh/sshd_config (suggested):
+      PermitRootLogin no
       PasswordAuthentication no
       PubkeyAuthentication yes
       MaxAuthTries 3
@@ -47,36 +60,38 @@ if [[ -f /etc/ssh/sshd_config ]]; then
 EOF
 fi
 
-# 4. Install recommended packages if pacman is available
-if command -v pacman >/dev/null; then
-  echo "[+] Installing recommended base security packages..."
+# 4. Recommended packages
+if command -v pacman >/dev/null 2>&1; then
+  echo "[+] Ensuring core security packages are present..."
   pacman -S --needed --noconfirm \
     linux-hardened linux-hardened-headers \
-    apparmor \
-    nftables \
+    apparmor nftables \
     firejail bubblewrap \
-    lynis \
-    aide \
-    fail2ban \
+    lynis aide fail2ban \
     wireguard-tools \
-    || echo "    Some packages failed or are already installed. Continuing."
+    2>/dev/null || echo "    Some packages could not be installed (check mirrors / conflicts)."
 fi
 
 # 5. AppArmor
-if command -v aa-status >/dev/null || pacman -Q apparmor &>/dev/null; then
-  echo "[+] Enabling AppArmor..."
-  systemctl enable apparmor || true
-  echo "    Ensure kernel cmdline contains: apparmor=1 lsm=landlock,lockdown,yama,apparmor"
+if pacman -Q apparmor &>/dev/null 2>&1; then
+  echo "[+] Enabling AppArmor service..."
+  systemctl enable apparmor >/dev/null 2>&1 || true
+  echo "    Ensure kernel cmdline includes:"
+  echo "      apparmor=1 lsm=landlock,lockdown,yama,apparmor"
 fi
 
 echo
-echo "=== Hardening application finished ==="
-echo "Next steps:"
-echo "  1. Review and adjust /etc/sysctl.d/99-blackhill-hardening.conf"
-echo "  2. Review /etc/nftables.conf and start the service"
-echo "  3. Set kernel command line (GRUB or systemd-boot) with recommended mitigations"
-echo "  4. Configure full-disk encryption + Btrfs + snapper if not already done"
-echo "  5. Install Hyprland theme from themes/blackhill-dark"
-echo "  6. Reboot and run lynis audit"
+echo "=============================================="
+echo "  Hardening application finished"
+echo "=============================================="
 echo
-echo "BLACKHILL — Own the machine."
+echo "Next recommended steps:"
+echo "  1. Review /etc/sysctl.d/99-blackhill-hardening.conf"
+echo "  2. Review /etc/nftables.conf and start nftables"
+echo "  3. Configure kernel command line (hardened parameters)"
+echo "  4. Set up LUKS2 + Btrfs + snapshots if not already done"
+echo "  5. Install desktop theme: themes/blackhill-dark/install-theme.sh"
+echo "  6. Reboot and run: lynis audit system"
+echo
+echo "Documentation: docs/INSTALL.md"
+echo "BLACKHILL — Own the machine. Completely."
