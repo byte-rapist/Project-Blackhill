@@ -1,32 +1,66 @@
-/* BLACKHILL Rofi theme */
+/* BLACKHILL Rofi — Bubble Glass */
 
 * {
-  background-color: #0A0A0A;
+  background-color: transparent;
   text-color: #E8E8E8;
-  font: "Inter 12";
+  font: "Inter 13";
 }
 
 window {
-  background-color: #0A0A0A;
-  border: 2px solid #2A2A2A;
-  border-radius: 10px;
-  padding: 12px;
+  background-color: rgba(18, 18, 18, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 16px;
+  width: 420px;
+}
+
+mainbox {
+  background-color: transparent;
+  spacing: 12px;
 }
 
 inputbar {
-  background-color: #141414;
-  border: 1px solid #2A2A2A;
-  border-radius: 8px;
-  padding: 10px 14px;
-  margin-bottom: 10px;
+  background-color: rgba(40, 40, 40, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 12px 16px;
+  children: [prompt, entry];
 }
 
 prompt {
   text-color: #C41E3A;
-  margin-right: 8px;
+  margin-right: 10px;
+}
+
+entry {
+  text-color: #E8E8E8;
+  placeholder-color: #666666;
+  placeholder: "Search...";
+}
+
+listview {
+  background-color: transparent;
+  spacing: 4px;
+  lines: 9;
+  scrollbar: false;
+}
+
+element {
+  background-color: transparent;
+  padding: 10px 14px;
+  border-radius: 12px;
 }
 
 element selected {
-  background-color: #8B0000;
+  background-color: rgba(139, 0, 0, 0.85);
   text-color: #FFFFFF;
+}
+
+element-text {
+  text-color: inherit;
+}
+
+element-icon {
+  size: 28px;
+  margin-right: 12px;
 }

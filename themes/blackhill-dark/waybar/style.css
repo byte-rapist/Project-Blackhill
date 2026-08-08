@@ -1,29 +1,45 @@
-/* BLACKHILL Waybar – premium dark + security module */
+/* BLACKHILL Waybar — Bubble Glass */
 
 * {
   border: none;
   border-radius: 0;
-  font-family: "Inter", "JetBrains Mono", sans-serif;
+  font-family: "Inter", "SF Pro Display", "Segoe UI", sans-serif;
   font-size: 13px;
   min-height: 0;
 }
 
 window#waybar {
-  background-color: rgba(10, 10, 10, 0.92);
+  background-color: rgba(15, 15, 15, 0.55);
   color: #E8E8E8;
-  border-bottom: 1px solid #2A2A2A;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  /* Waybar itself is a bar; modules get the bubble shape */
+}
+
+#workspaces {
+  margin: 4px 0 4px 8px;
+  padding: 0 4px;
+  background: rgba(30, 30, 30, 0.45);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 #workspaces button {
-  padding: 0 8px;
-  background-color: transparent;
+  padding: 0 10px;
+  margin: 3px 2px;
+  background: transparent;
   color: #A0A0A0;
-  border-bottom: 2px solid transparent;
+  border-radius: 12px;
+}
+
+#workspaces button:hover {
+  background: rgba(196, 30, 58, 0.25);
+  color: #E8E8E8;
 }
 
 #workspaces button.active {
-  color: #C41E3A;
-  border-bottom: 2px solid #8B0000;
+  background: rgba(139, 0, 0, 0.85);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(139, 0, 0, 0.4);
 }
 
 #clock,
@@ -31,31 +47,38 @@ window#waybar {
 #cpu,
 #memory,
 #network,
-#tray {
-  padding: 0 10px;
-  margin: 0 2px;
+#tray,
+#custom-security,
+#pulseaudio {
+  margin: 4px 4px;
+  padding: 0 12px;
+  background: rgba(30, 30, 30, 0.5);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
   color: #E8E8E8;
 }
 
 #custom-security {
-  padding: 0 10px;
-  margin: 0 2px;
   color: #C41E3A;
   font-weight: 600;
 }
 
 #custom-security.security-high {
-  color: #2E7D32;
+  color: #66BB6A;
 }
 
 #custom-security.security-medium {
-  color: #F9A825;
+  color: #FFD54F;
 }
 
 #custom-security.security-low {
-  color: #C62828;
+  color: #EF5350;
 }
 
 #network.disconnected {
-  color: #C62828;
+  color: #EF5350;
+}
+
+#clock {
+  font-weight: 500;
 }
