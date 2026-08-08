@@ -1,0 +1,39 @@
+# Build artifacts
+work/
+out/
+*.iso
+*.img
+*.tar.gz
+*.tar.xz
+
+# Editor / OS
+.DS_Store
+*.swp
+*.swo
+*~
+.idea/
+.vscode/
+*.code-workspace
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Local overrides
+*.local
+.env
+secrets/
+
+# Archiso work dirs
+archlive/
+profile/work/
+
+# Package builds
+pkg/
+src/
+*.pkg.tar*
+
+# Logs
+*.log
